@@ -1,6 +1,9 @@
-# qControlCenter
-qControlCenter lets you easily and quickly build a control center for your distribution. Can be useful if you don't like the control center of your distro, or if you distro doesn't have any.
+- qControlCenter v0.1 -
+----------------------
 
+ABOUT:
+------
+ qControlCenter lets you easily and quickly build a control center for your distribution. Can be useful if you don't like the control center of your distro, or if you distro doesn't have any.
 
 FEATURES:
 ---------
@@ -82,9 +85,9 @@ qControlCenter setup INSTRUCTIONS:
 LICENSE:
 --------
  G.P.L. 2.0
- 
-HITORY
-------
-QControlCenter's author is Thierry Deseez.
 
-On Thu, 22 Oct 2015 Thierry agreed that Didier Spaier take over the maintainance of the project.
+CONTACT:
+--------
+ - author : thierry deseez
+ - e-mail : pizza.tony@free.fr
+ - website : www.qt-apps.org 
