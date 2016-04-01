@@ -16,57 +16,17 @@ REQUIREMENTS:
 CHANGELOG:
   Version 0.1 (launched 2008/05/20)
 
-INSTALL:
-- click "Download ZIP" and unzip the zipped archive or clone the repository
+INSTALL
+- click "Download ZIP" and unzip the zipped archive, or clone the repository
 - type the following commands :
-  # cd qcontrolcenter
-  # python qcontrolcenter.py
-  or
-  # python qcontrolcenter.py /path/to/a/spectific/structure/directory
+
+- # cd qcontrolcenter
+- # python qcontrolcenter.py
+or
+- # python qcontrolcenter.py /path/to/a/spectific/structure/directory
 
 SETUP:
-
-STEP 1
-In order to use qControlCenter you have to create a main structure directory. For instance : 
-
-  # mkdir /etc/qcontrolcenter
-
-By default, qControlCenter uses /etc/qcontrolcenter as base structure directory.
-
-STEP 2
-Inside the folder created above, create subdirectories corresponding to the control center categories. Example :
-
-  # cd /etc/qcontrolcenter
-  # mkdir Boot
-  # mkdir Devices
-  # mkdir NetworkAndInternet
-  # mkdir Security
-  # mkdir System
-
-STEP 3
-You have to fill those directories with some '.desktop' files. Most of them are usually located in '/usr/share/applications'. You may copy or link the .desktop files in a subdirectory of your choice. Example :
-
-  # cd /etc/qcontrolcenter/Devices
-  # ln -s /usr/share/applications/cups.desktop
-  # ln -s /usr/share/applications/hplip.desktop
-  # ln -s /usr/share/applications/nvidia-settings.desktop
-
-
-STEP 4
-You may create an icon for your section. qControlCenter uses the file named 'icon.png' in your subdirectory as icon for the section (example : /etc/qcontrolcenter/Devices/icon.png)
-
-
-STEP 5
-You also may want to customize the name of the section in your language. Create a file named 'folder.ini' (example : /etc/qcontrolcenter/Devices/folder.ini) and write it like this :
-
-default=Hardware
-fr=Périphériques
-it=...
-de=...
-ru=...
-
-qControlCenter detects automatically your language.
-Note : 'default=' means english.
+See the file qcontrolcenter/README.TXT 
 
 LICENSE:
   G.P.L. 2.0
