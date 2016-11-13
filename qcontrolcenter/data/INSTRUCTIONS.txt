@@ -2,49 +2,83 @@
 
 STEP 1
 ------
-In order to use qControlCenter you have to create a main structure directory. For instance : 
+qControlCenter needs a structure to work, containing one directory per category, fed with .desktop files.
 
-# mkdir /etc/qcontrolcenter
+The main directory searched for by qControlCenter is ~/.qcontrolcenter and if not found /etc/skel/.qcontrolcenter. If none is found it displays these instructions.
 
-By default, qControlCenter uses /etc/qcontrolcenter as base structure directory.
+In this document ~ represents a user's home directory e.g. /home/didier.
 
+Upon an account creation, if a directory /etc/skel/.qcontrolcenter exists it will be copied as ~/.qcontrolcenter.
+
+So: 
+
+If you are a sysadmin or distribution maintainer, we suggest that you store the structure in /etc/skel/.qcontrolcenter.
+
+If you are an end user and already have a ~/.qcontrolcenter directory, you can use it as is and also customize it to your liking.
+
+If you are an end user with no existing ~/.qcontrolcenter directory, you will implicitly use the global /etc/skel/.qcontrolcenter directory.
+But you can also copy it as ~/.qcontrolcenter then customize it or if you are the sole user of your computer just create ~/.qcontrolcenter.
+
+Of course the customization of ~/.qcontrolcenter will only affect the user in concern.
 
 STEP 2
 ------
-Inside the folder created above, create subdirectories corresponding to the control center categories. Example :
 
-# cd /etc/qcontrolcenter 
-# mkdir Boot
-# mkdir Devices
-# mkdir NetworkAndInternet
+Inside the folder created above, the sysadmin (the end user in case of a personal computer) creates directories corresponding to the control center categories. Example :
+# cd /etc/skel/.qcontrolcenter
+or
+# cd ~/.qcontrolcenter (in case of just one user account)
+# mkdir Hardware
+# mkdir Network
 # mkdir Security
+# mkdir Seetings
 # mkdir System
+# mkdir Utility
 
 
 STEP 3
 ------
-You have to fill those directories with some '.desktop' files. Most of them are usually located in '/usr/share/applications'. You may copy or link the .desktop files in a subdirectory of your choice. Example :
+Fill these directories with some '.desktop' files. Most of them are usually located in '/usr/share/applications'. You may copy or link the .desktop files in a subdirectory of your choice.
+Example :
 
-# cd /etc/qcontrolcenter/Devices
+# cd /etc/.qcontrolcenter/Devices
 # ln -s /usr/share/applications/cups.desktop
 # ln -s /usr/share/applications/hplip.desktop
 # ln -s /usr/share/applications/nvidia-settings.desktop
 
+You can check the compliance of your .dektop files to the XDG
+specification with the command desktop-file-validate.
 
 STEP 4
 ------
-You may create an icon for your section. qControlCenter uses the file named 'icon.png' in your subdirectory as icon for the section (example : /etc/qcontrolcenter/Devices/icon.png)
+You may create an icon for your section. qControlCenter uses the file
+named 'icon.png' in your subdirectory as icon for the section.  example:
+~/.qcontrolcenter/Devices/icon.png)
 
 
 STEP 5
 ------
-You also may want to customize the name of the section in your language. Create a file named 'folder.ini' (example : /etc/qcontrolcenter/Devices/folder.ini) and write it like this :
+You also may want to localize  the sections' names: create a file named 'folder.ini' (example : ~/.qcontrolcenter/Devices/folder.ini) and write it like this :
 
 default=Hardware
-fr=Périphériques
+fr=Matériel
 it=...
 de=...
 ru=...
 
-qControlCenter detects automatically your language.
-Note : 'default=' means english.
+qControlCenter detects automatically your language. 'default=' means English.
+
+STEP 6
+------
+Run qcontrolcenter
+
+NOTES
+-----
+
+By default the window's title is QControlCenter.
+
+You can change it setting the QCONTROLCENTERTITLE environment variable before running qcontrolcenter.
+
+qControlCenter takes into account the content of the ShowOnlyIn and NotShowIn fields of the .desktop files.
+
+This can be useful if several desktops are available, to show only the relevant icons for the one in use, set as XDG_CURRENT_DESKTOP.
