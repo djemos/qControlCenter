@@ -11,6 +11,7 @@ REQUIREMENTS:
 - Qt (I mean qt4)
 - python
 - pyqt4 (qt4 bindings for python)
+- pyxdg (python library to access freedesktop.org specifications)
 
 CHANGELOG:
 - Version 0.1 (launched 2008/05/20)
