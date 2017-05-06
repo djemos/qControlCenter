@@ -88,6 +88,8 @@ LICENSE:
 
 CONTACT:
 --------
- - author : thierry deseez
- - e-mail : pizza.tony@free.fr
- - website : www.qt-apps.org 
+ - author : Thierry Deseez
+ - email : pizza~dot~tony~at~free~dot~fr
+ - maintainer : Didier Spaier
+ - email : didier~at~slint~dot~fr
+ - website : https://github.com/DidierSpaier/qControlCenter
