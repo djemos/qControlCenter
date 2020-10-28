@@ -1,0 +1,29 @@
+#Maintainer: Dimitris Tzemos <dijemos~at~gmail~dot~com>
+
+pkgname=qcontrolcenter
+pkgver=0.2
+pkgrel=1dj
+arch=noarch
+source=("$pkgname-$pkgver.tar.xz")
+options=('noautodotnew' 'nosrcpack')
+
+slackdesc=\
+(
+#|-----handy-ruler------------------------------------------------------|
+"qcontrolcenter (Easily customizable Control Center)"
+"qControlCenter has been written initially by Thierry Deseez."
+"qControlCenter lets you easily and quickly build a control"
+"center for your distribution."
+"This can be useful if you don't like the control center of your"
+"distribution, or if you distribution doesn't have any."
+)
+
+build() {
+	cd $startdir/src/$pkgname-$pkgver
+	mkdir -p $startdir/pkg/usr/doc/$pkgname-$pkgver $startdir/pkg/usr/share/applications $startdir/pkg/usr/bin $startdir/pkg/usr/share/qcontrolcenter/icons
+	cp -r $startdir/src/$pkgname-$pkgver/usr/share/qcontrolcenter/ $startdir/pkg/usr/doc/$pkgname-$pkgver/
+	cp -r $startdir/src/$pkgname-$pkgver/usr/share/qcontrolcenter/* $startdir/pkg/usr/share/qcontrolcenter/
+	cp $startdir/src/$pkgname-$pkgver/usr/bin/* $startdir/pkg/usr/bin/
+	cp $startdir/src/$pkgname-$pkgver/usr/share/applications/*.desktop $startdir/pkg/usr/share/applications
+	chown -R root:root $startdir/pkg/
+}
