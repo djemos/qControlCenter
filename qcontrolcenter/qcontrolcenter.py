@@ -1,19 +1,28 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 # Copyright Thierry Deseez 2008
-# Copyright Didier Spaier 2016
+# Copyright Didier Spaier 2016, 2017
+# Copyright Dimitris Tzemos 2021 - Ported to python3
+
 import sys, os, shutil
+
+if sys.version_info[0] >= 3:
+	unicode = str
+	
+from PyQt5.QtWidgets import *
 import xdg.DesktopEntry
 import xdg.IconTheme
 # import xdg.Exceptions as exc
 # import xdg.BaseDirectory as bd
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets #works for pyqt5
+from PyQt5.QtCore import QUrl
 from helpDialog import helpDialog
 
 # *** SOME GENERAL FUNCTIONS ***
 # We recommend that the sysadmin or distribution maintainer installs the
 # base structure as /etc/skel/.qcontrolcenter
-# In that case a user created afetr that wil get a copy of this structue as
+# In that case a user created after that will get a copy of this structue as
 # ~/.qcontrolcenter
 def getBaseStructureDirectoryPath():
 	home_dir = os.path.expanduser("~")
@@ -29,7 +38,8 @@ def getBaseStructureDirectoryPath():
 # 
 
 def getWindowTitle():
-	window_title = "qControlCenter"
+	#window_title = "qControlCenter"
+	window_title = "Slackel Control Center"
 	if os.getenv('QCONTROLCENTERTITLE') != None:
 		window_title = os.getenv('QCONTROLCENTERTITLE')
 	return window_title
@@ -49,52 +59,52 @@ FOLDER_ICON = "icon.png"
 LANG = getLanguage()
 TITLE = getWindowTitle()
 TRUC = "qControlCenter"
-print TRUC, "Started ..."
-print TRUC, "window title =", TITLE
-print TRUC, "tree =", CONFIG_DIR
-print TRUC, "Language used =", LANG
+print (TRUC, "Started ...")
+print (TRUC, "window title =", TITLE)
+print (TRUC, "tree =", CONFIG_DIR)
+print (TRUC, "Language used =", LANG)
 if not os.path.exists(CONFIG_DIR):
 	if os.path.exists('/etc/skel/.qcontrolcenter'):
 		shutil.copytree('/etc/skel/.qcontrolcenter',CONFIG_DIR)
 	else:
-		print "No base structure directory found."
-		print "Please read the instructions in this document:"
-		print "/usr/share/qcontrolcenter/INSTRUCTIONS.txt"
+		print ("No base structure directory found.")
+		print ("Please read the instructions in this document:")
+		print ("/usr/share/qcontrolcenter/INSTRUCTIONS.txt")
 
 # *** MAIN CLASS ***
 """
 layout:
-	dock (QtGui.QDockWindow)
+	dock (QtWidgets.QDockWindow)
 		# List widget docked on the left on the windows
 		# It will site the categories (sub-directories of base_dir)
-		self.contentsWidget (Qtgui.QlistWidget(dock))
-	self.textBrowser (QtGui.QTextBroowser)
+		self.contentsWidget (QtWidgets.QlistWidget(dock))
+	self.textBrowser (QtWidgets.QTextBroowser)
 		# Text browser in the left space in the window, hnece one the
 		# right of the lsit widget.
 		self.setCentralWidget (self.textBrowser)"""
-class ConfigDialog(QtGui.QMainWindow):
+class ConfigDialog(QtWidgets.QMainWindow):
 	def __init__(self):
-		QtGui.QMainWindow.__init__(self)
+		QtWidgets.QMainWindow.__init__(self)
 		self.process = QtCore.QProcess()
-		dock = QtGui.QDockWidget(self.tr(u"Catégories"), self)
+		dock = QtWidgets.QDockWidget(self.tr(u"Categories"), self)
 # The dock be non movable, non closable and non floatable by the user. 
-		dock.setFeatures(QtGui.QDockWidget.NoDockWidgetFeatures)
+		dock.setFeatures(QtWidgets.QDockWidget.NoDockWidgetFeatures)
 		dock.font().setBold(True)
-		dock.setFont( QtGui.QFont(dock.font()) )
-		self.contentsWidget = QtGui.QListWidget(dock)
+#		dock.setFont( QtWidgets.QFont(dock.font()) )
+		self.contentsWidget = QtWidgets.QListWidget(dock)
 		self.contentsWidget.setSpacing(1)
 		self.contentsWidget.setAlternatingRowColors(True)
 		self.contentsWidget.setIconSize(QtCore.QSize(32, 32))
-		self.textBrowser = QtGui.QTextBrowser()
+		self.textBrowser = QtWidgets.QTextBrowser()
 		self.textBrowser.setOpenLinks(False)
 		self.setCentralWidget(self.textBrowser)
 # When an URL is clicked in the central widget (text widget),
 # the corresponding program is launched
-		self.connect(self.textBrowser, QtCore.SIGNAL("anchorClicked(const QUrl &)"), self.launchProgram)
+		self.textBrowser.anchorClicked[QUrl].connect(self.launchProgram)
 # When the item (category) in the list widget is changed we change the
 # page seen in the text browser, that will include information taken from
 # the .desktop files in that category (folder in CONFIG_DIR).
-		self.connect(self.contentsWidget, QtCore.SIGNAL("currentItemChanged(QListWidgetItem *, QListWidgetItem *)"), self.changePage)
+		self.contentsWidget.currentItemChanged[QListWidgetItem, QListWidgetItem].connect(self.changePage)
 		# initialize (populates) the main window
 		# This populates the dock with the list of categories
 		self.initContentsWidget()
@@ -105,12 +115,12 @@ class ConfigDialog(QtGui.QMainWindow):
 		# This implicitely shows (displays) the widget as the dock widget
 		# was not yet visible
 		dock.setWidget(self.contentsWidget)
-		helpButton = QtGui.QPushButton(QtGui.QIcon("/usr/share/qcontrolcenter/icons/info.png"),"")
-		quitButton = QtGui.QPushButton(QtGui.QIcon("/usr/share/qcontrolcenter/icons/exit.png"),"")
+		helpButton = QtWidgets.QPushButton(QtGui.QIcon("/usr/share/qcontrolcenter/icons/info.png"),"")
+		quitButton = QtWidgets.QPushButton(QtGui.QIcon("/usr/share/qcontrolcenter/icons/exit.png"),"")
 		self.statusBar().addPermanentWidget(helpButton, 0)
 		self.statusBar().addPermanentWidget(quitButton, 0)
-		self.connect(helpButton, QtCore.SIGNAL("clicked()"), self.showAbout)
-		self.connect(quitButton, QtCore.SIGNAL("clicked()"), QtCore.SLOT("close()"))
+		helpButton.clicked.connect(self.showAbout)
+		quitButton.clicked.connect(self.close)
 		self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, dock)
 		self.setWindowTitle(self.tr(getWindowTitle()))
 		self.setWindowIcon(QtGui.QIcon("icons/arch-logo.png"))
@@ -126,7 +136,7 @@ class ConfigDialog(QtGui.QMainWindow):
 	def changePage(self):
 		# init values
 		#self.contentsWidget.currentItem().setSelected(True)
-		sectionName = self.contentsWidget.currentItem().data(QtCore.Qt.UserRole).toString()
+		sectionName = self.contentsWidget.currentItem().data(QtCore.Qt.UserRole).strip()
 		html = ""
 		current_dir = os.path.join( CONFIG_DIR, unicode(sectionName) )
 		current_column = 1
@@ -138,11 +148,11 @@ class ConfigDialog(QtGui.QMainWindow):
 		# directory, whose name is set as the current (highlighted) item
 		# i.e. category in the dock. 
 		for fileName in folder.entryInfoList():
-			if not fileName.fileName().endsWith(".desktop"):
+			if not fileName.fileName().endswith(".desktop"):
 				continue
 			current_file_name = os.path.join( current_dir, unicode( fileName.fileName() ) )
 			# Store the settings found in the .desktop file
-			settings = xdg.DesktopEntry.DesktopEntry(filename=os.path.join( current_dir, unicode( fileName.fileName() ) ))
+			settings = xdg.DesktopEntry.DesktopEntry(filename=os.path.join( current_dir, (fileName.fileName())) )
 			onlyShowIn = settings.getOnlyShowIn()
 			notShowIn = settings.getNotShowIn()
 			if 'XDG_CURRENT_DESKTOP' in os.environ and len(onlyShowIn) >0 and not os.environ['XDG_CURRENT_DESKTOP'] in onlyShowIn:
@@ -231,13 +241,16 @@ class ConfigDialog(QtGui.QMainWindow):
 		# Loop inside the categories in the config tree
 		for folderName in folder.entryInfoList():
 			# Condider only category names of al laast three characters
-			if folderName.fileName().size() > 2:
+			if len(folderName.fileName()) > 2:
 				current_dir = os.path.join( CONFIG_DIR, unicode(folderName.fileName()) )
 				# Bear in mind that self.contentsWidget is a docked list item
 				# configButton is an item in that list
-				configButton = QtGui.QListWidgetItem( self.contentsWidget)
-				configButton.setIcon( QtGui.QIcon( os.path.join(current_dir, FOLDER_ICON) ) )
-				configButton.setText( self.getSectionTitle(current_dir) )#configButton.setText(folderName.fileName())
+				configButton = QtWidgets.QListWidgetItem( self.contentsWidget)
+				configButton.setIcon(QtGui.QIcon( os.path.join(current_dir, FOLDER_ICON) ) )
+				configButton.setText( self.getSectionTitle(current_dir) )	
+							
+				#configButton.setText(folderName.fileName())
+				
 				configButton.setTextAlignment( QtCore.Qt.AlignLeft )
 				# Align center vertically (Didier)
 				configButton.setTextAlignment( QtCore.Qt.AlignVCenter )
@@ -254,10 +267,11 @@ class ConfigDialog(QtGui.QMainWindow):
 			return title
 		
 		settings = QtCore.QSettings(file_name, QtCore.QSettings.IniFormat)
-		if settings.value(LANG).toString().trimmed() != "":
-			title = unicode(settings.value(LANG).toString(), "utf-8")
+		if settings.value(LANG).strip() != "":
+			title = unicode(settings.value(LANG).strip())
+			#title=LANG
 		"""
-		#if len(LANG) > 1:
+		#if len(LANG) > 1
 		if settings.value(LANG).toString() != "":
 			title = unicode(settings.value(LANG).toString(), "utf-8")
 		elif settings.value("default").toString() != "":
@@ -267,7 +281,7 @@ class ConfigDialog(QtGui.QMainWindow):
 
 # *** MAIN LOOP ***
 if __name__ == "__main__":
-	app = QtGui.QApplication(sys.argv)
+	app = QtWidgets.QApplication(sys.argv)
 	dialog = ConfigDialog()
 	dialog.show()
 	sys.exit(app.exec_())
