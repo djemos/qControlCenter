@@ -16,7 +16,7 @@ import xdg.IconTheme
 # import xdg.Exceptions as exc
 # import xdg.BaseDirectory as bd
 from PyQt5 import QtCore, QtGui, QtWidgets #works for pyqt5
-from PyQt5.QtCore import QUrl, QObject, pyqtSignal
+from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QDesktopServices
 from helpDialog import helpDialog
 
