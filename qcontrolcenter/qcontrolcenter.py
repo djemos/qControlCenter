@@ -137,7 +137,7 @@ class ConfigDialog(QtWidgets.QMainWindow):
 		helpDlg.show()
 		
 	def launchProgram(self, programName):
-		if programName.toString().startswith("http://"): # If it is an Url link opet it with openUrl()
+		if programName.toString().startswith("http://") or programName.toString().startswith("https://"): # If it is an Url link, open it with openUrl()
 			QDesktopServices.openUrl(QUrl(programName.toString()))
 		else:	
 			self.process.startDetached(programName.toString())
