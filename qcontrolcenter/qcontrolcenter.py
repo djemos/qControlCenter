@@ -3,7 +3,7 @@
 
 # Copyright Thierry Deseez 2008
 # Copyright Didier Spaier 2016, 2017
-# Copyright Dimitris Tzemos 2021 - Ported to python3
+# Copyright Dimitris Tzemos 2022 - Ported to python3
 
 import sys, os, shutil
 
@@ -16,7 +16,8 @@ import xdg.IconTheme
 # import xdg.Exceptions as exc
 # import xdg.BaseDirectory as bd
 from PyQt5 import QtCore, QtGui, QtWidgets #works for pyqt5
-from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QUrl, QObject, pyqtSignal
+from PyQt5.QtGui import QDesktopServices
 from helpDialog import helpDialog
 
 # *** SOME GENERAL FUNCTIONS ***
@@ -100,7 +101,7 @@ class ConfigDialog(QtWidgets.QMainWindow):
 		self.setCentralWidget(self.textBrowser)
 # When an URL is clicked in the central widget (text widget),
 # the corresponding program is launched
-		self.textBrowser.anchorClicked[QUrl].connect(self.launchProgram)
+		self.textBrowser.anchorClicked.connect(self.launchProgram)
 # When the item (category) in the list widget is changed we change the
 # page seen in the text browser, that will include information taken from
 # the .desktop files in that category (folder in CONFIG_DIR).
@@ -125,13 +126,21 @@ class ConfigDialog(QtWidgets.QMainWindow):
 		self.setWindowTitle(self.tr(getWindowTitle()))
 		self.setWindowIcon(QtGui.QIcon("icons/arch-logo.png"))
 		self.setMinimumSize(640,480)
-		
+	
+
+		def show_monitor_temp(self, URL):
+			print("show_monitor_temp")
+			print(URL.toString())
+        		
 	def showAbout(self):
 		helpDlg = helpDialog(self)
 		helpDlg.show()
 		
 	def launchProgram(self, programName):
-		self.process.startDetached(programName.toString())
+		if programName.toString().startswith("http://"): # If it is an Url link opet it with openUrl()
+			QDesktopServices.openUrl(QUrl(programName.toString()))
+		else:	
+			self.process.startDetached(programName.toString())
 
 	def changePage(self):
 		# init values
@@ -267,9 +276,10 @@ class ConfigDialog(QtWidgets.QMainWindow):
 			return title
 		
 		settings = QtCore.QSettings(file_name, QtCore.QSettings.IniFormat)
-		if settings.value(LANG).strip() != "":
-			title = unicode(settings.value(LANG).strip())
-			#title=LANG
+		### comment the following two lines till solve the problem with non-latin characters 
+		#if settings.value(LANG).strip() != "":
+		#	title = unicode(settings.value(LANG).strip())
+
 		"""
 		#if len(LANG) > 1
 		if settings.value(LANG).toString() != "":
