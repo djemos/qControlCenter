@@ -15,8 +15,8 @@ import xdg.DesktopEntry
 import xdg.IconTheme
 # import xdg.Exceptions as exc
 # import xdg.BaseDirectory as bd
-from PyQt5 import QtCore, QtGui, QtWidgets 
-from PyQt5.QtCore import QUrl
+from PyQt5 import QtCore, QtGui, QtWidgets #works for pyqt5
+from PyQt5.QtCore import QUrl, QObject, pyqtSignal
 from PyQt5.QtGui import QDesktopServices
 from helpDialog import helpDialog
 
@@ -276,11 +276,10 @@ class ConfigDialog(QtWidgets.QMainWindow):
 			return title
 		
 		settings = QtCore.QSettings(file_name, QtCore.QSettings.IniFormat)
-		
-		# comment the following two lines untill solve the problem with non-latin characters
-		
-		#if settings.value(LANG).strip() != "":
-		#	title = unicode(settings.value(LANG).strip())
+		QtCore.QSettings.setIniCodec(settings,"UTF-8") # Sets the codec for accessing INI files (including .conf files on Unix) 
+
+		if settings.value(LANG).strip() != "":
+			title = unicode(settings.value(LANG).strip())
 
 		"""
 		#if len(LANG) > 1
