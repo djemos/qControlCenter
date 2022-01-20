@@ -9,7 +9,7 @@ import sys, os, shutil
 
 if sys.version_info[0] >= 3:
 	unicode = str
-	
+
 from PyQt5.QtWidgets import *
 import xdg.DesktopEntry
 import xdg.IconTheme
@@ -51,6 +51,39 @@ def getLanguage():
 		lng = "default"
 	return lng
 
+def getLanguage_left_panel_title():
+	lang_list=[
+	'af','ar','as','ast','be','be@latin','bg','bn','bn_IN','br',
+	'bs','ca','ca@valencia','cs','csb','cy','da','de','el','en_GB',
+	'eo','es','et','eu','fa','fi','fr','fy','ga','gl',
+	'gu','he','hi','hne','hr','hsb','hu','ia','id','is',
+	'it','ja','ka','kk','km','kn','ko','ku','lt','lv',
+	'mai''mk','ml','mr','ms','nb','nds','ne','nl','nn',
+	'oc','or','pa','pl','pt','pt_BR','ro','ru','se','si',
+	'sk','sl','sr','sr@ijekavian','sr@ijekavianlatin','sr@latin','sv','ta','te','tg',
+	'th','tr','ug','uk','uz','uz@cyrillic','vi','wa','xh','x-test',
+	'zh_CN','zh_TW','default']
+
+
+	lang_names=(	
+	'Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories',
+	'Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Kατηγορίες','Categories',
+	'Categories','Categories','Categories','Categories','Categories','Categories','Catégories','Categories','Categories','Categories',
+	'Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories',
+	'Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories',
+	'Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories',
+	'Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories',
+	'Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories',
+	'Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories','Categories',
+	'Categories','Categories','Categories')
+
+	lng = getLanguage()
+	index_pos = lang_list.index(lng)
+	if lng in lang_list:
+		return lang_names[index_pos]
+
+
+
 # *** GLOBAL VARIABLES ***
 CONFIG_DIR = getBaseStructureDirectoryPath()
 PIXMAPS_DIR = "/usr/share/pixmaps"
@@ -72,6 +105,7 @@ if not os.path.exists(CONFIG_DIR):
 		print ("Please read the instructions in this document:")
 		print ("/usr/share/qcontrolcenter/INSTRUCTIONS.txt")
 
+
 # *** MAIN CLASS ***
 """
 layout:
@@ -87,11 +121,12 @@ class ConfigDialog(QtWidgets.QMainWindow):
 	def __init__(self):
 		QtWidgets.QMainWindow.__init__(self)
 		self.process = QtCore.QProcess()
-		dock = QtWidgets.QDockWidget(self.tr(u"Categories"), self)
+		
+		dock = QtWidgets.QDockWidget(self.tr(getLanguage_left_panel_title()), self)
 # The dock be non movable, non closable and non floatable by the user. 
 		dock.setFeatures(QtWidgets.QDockWidget.NoDockWidgetFeatures)
 		dock.font().setBold(True)
-#		dock.setFont( QtWidgets.QFont(dock.font()) )
+#		dock.setFont( QtGui.QFont(dock.font()) )
 		self.contentsWidget = QtWidgets.QListWidget(dock)
 		self.contentsWidget.setSpacing(1)
 		self.contentsWidget.setAlternatingRowColors(True)
@@ -126,12 +161,7 @@ class ConfigDialog(QtWidgets.QMainWindow):
 		self.setWindowTitle(self.tr(getWindowTitle()))
 		self.setWindowIcon(QtGui.QIcon("icons/arch-logo.png"))
 		self.setMinimumSize(640,480)
-	
-
-		def show_monitor_temp(self, URL):
-			print("show_monitor_temp")
-			print(URL.toString())
-        		
+	       		
 	def showAbout(self):
 		helpDlg = helpDialog(self)
 		helpDlg.show()
