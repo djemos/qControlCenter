@@ -51,7 +51,7 @@ class helpDialog(QtWidgets.QDialog):
 			"<b>" + APPNAME + "</b>&nbsp;" + VERSION + "<br><br><i>Create your own control center quickly & easily.</i>"
 			"<br><br>Copyright Thierry Deseez 2008"
 			"<br>Copyright Didier Spaier 2016 (didier~at~slint~dot~fr)<br>"
-			"<br>Copyright Dimitris Tzemos 2021 - Ported to python3 (dijemos~at~gmail~dot~com)<br>"
+			"<br>Copyright Dimitris Tzemos 2022 - Ported to python3 (dijemos~at~gmail~dot~com)<br>"
 			"</p>"
 		)
 		vlay = QtWidgets.QVBoxLayout()
@@ -68,14 +68,16 @@ class helpDialog(QtWidgets.QDialog):
 		vlay = QtWidgets.QVBoxLayout()
 
 		file = QtCore.QFile("/usr/share/qcontrolcenter/INSTRUCTIONS.txt")
-		if file.open(QtCore.QIODevice.ReadOnly | QtCore.QIODevice.Text):
-			while not file.atEnd():
-				textView.append(str(file.readLine().data().decode('UTF-8')))
+		if (file.open(QtCore.QFile.ReadOnly)):
+			text = file.readAll()
+			codec = QtCore.QTextCodec.codecForHtml(text)
+			textView.append(str(text.data().decode('UTF-8')).strip("\r\n"))
+			textView.moveCursor(QtGui.QTextCursor.Start)
 				
 		textContent = None
 		vlay.addWidget(textView)
 		tab.setLayout(vlay)
-
+		
 		return tab
 
 	def tabLicense(self):
@@ -85,13 +87,13 @@ class helpDialog(QtWidgets.QDialog):
 		vlay = QtWidgets.QVBoxLayout()
 
 		file = QtCore.QFile("/usr/share/qcontrolcenter/LICENSE.html")
-		if file.open(QtCore.QIODevice.ReadOnly | QtCore.QIODevice.Text):
-			while not file.atEnd():
-				textView.append(str(file.readLine().data().decode('UTF-8')))
-
-		
+		if (file.open(QtCore.QFile.ReadOnly)):
+			text = file.readAll()
+			codec = QtCore.QTextCodec.codecForHtml(text)
+			textView.append(str(text.data().decode('UTF-8')).strip("\r\n"))	
+			textView.moveCursor(QtGui.QTextCursor.Start)
+			
 		textContent = None
-
 		vlay.addWidget(textView)
 		tab.setLayout(vlay)
 
