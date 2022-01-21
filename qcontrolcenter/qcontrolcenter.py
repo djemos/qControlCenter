@@ -163,7 +163,7 @@ class ConfigDialog(QtWidgets.QMainWindow):
 		self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, dock)
 		self.setWindowTitle(self.tr(getWindowTitle()))
 		self.setWindowIcon(QtGui.QIcon("icons/arch-logo.png"))
-		#self.setMinimumSize(640,480)
+		self.setMinimumSize(640,480)
 		if not os.path.exists(CONFIG_DIR):
 			if not os.path.exists('/etc/skel/.qcontrolcenter'):
 				errorDlg = errorDialog(self)
