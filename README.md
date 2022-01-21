@@ -8,13 +8,14 @@ FEATURES:
 - should work on any distro
 
 REQUIREMENTS:
-- Qt (I mean qt4)
+- Qt (I mean qt5)
 - python
-- pyqt4 (qt4 bindings for python)
+- pyqt5 (qt5 bindings for python)
 - pyxdg (python library to access freedesktop.org specifications)
 
 CHANGELOG:
-- Version 0.1 (launched 2008/05/20)
+- Version 0.1 (launched 2008/05/20) - python2 and PyQt4
+- Version 0.3 (launced 2020/01/21) - Ported to python3 and PyQt5
 
 INSTALLATION AND SETUP:
 - See the file qcontrolcenter/README.TXT 
@@ -25,3 +26,4 @@ LICENSE:
 HISTORY:
 - QControlCenter's author is Thierry Deseez.
 - On Thu, 22 Oct 2015 Thierry agreed that Didier Spaier take over the maintainance of the project.
+- On 21 January 2020 Dimitris Tzemos take over the maintainance of the project and ported to python3 and PyQt5.
