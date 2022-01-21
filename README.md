@@ -26,4 +26,4 @@ LICENSE:
 HISTORY:
 - QControlCenter's author is Thierry Deseez.
 - On Thu, 22 Oct 2015 Thierry agreed that Didier Spaier take over the maintainance of the project.
-- On Fri, 21 January 2020 Dimitris Tzemos take over the maintainance of the project and ported to python3 and PyQt5.
+- On Fri, 21 January 2022 agreed that Dimitris Tzemos take over the maintainance of the project and ported to python3 and PyQt5.
