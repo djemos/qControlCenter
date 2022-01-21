@@ -3,7 +3,8 @@
 
 ABOUT:
 ------
- qControlCenter lets you easily and quickly build a control center for your distribution. Can be useful if you don't like the control center of your distro, or if you distro doesn't have any.
+ qControlCenter lets you easily and quickly build a control center for your distribution.
+ Can be useful if you don't like the control center of your distro, or if you distro doesn't have any.
 
 FEATURES:
 ---------
@@ -57,7 +58,8 @@ qControlCenter setup INSTRUCTIONS:
 	
 	STEP 3
 	------
-	You have to fill those directories with some '.desktop' files. Most of them are usually located in '/usr/share/applications'. You may copy or link the .desktop files in a subdirectory of your choice. Example :
+	You have to fill those directories with some '.desktop' files. Most of them are usually located in '/usr/share/applications'.
+	You may copy or link the .desktop files in a subdirectory of your choice. Example :
 	
 	# cd /etc/qcontrolcenter/Devices
 	# ln -s /usr/share/applications/cups.desktop
@@ -67,12 +69,14 @@ qControlCenter setup INSTRUCTIONS:
 	
 	STEP 4
 	------
-	You may create an icon for your section. qControlCenter uses the file named 'icon.png' in your subdirectory as icon for the section (example : /etc/qcontrolcenter/Devices/icon.png)
+	You may create an icon for your section. 
+	qControlCenter uses the file named 'icon.png' in your subdirectory as icon for the section (example : /etc/qcontrolcenter/Devices/icon.png)
 	
 	
 	STEP 5
 	------
-	You also may want to customize the name of the section in your language. Create a file named 'folder.ini' (example : /etc/qcontrolcenter/Devices/folder.ini) and write it like this :
+	You also may want to customize the name of the section in your language. 
+	Create a file named 'folder.ini' (example : /etc/qcontrolcenter/Devices/folder.ini) and write it like this :
 	
 	default=Hardware
 	fr=Périphériques
