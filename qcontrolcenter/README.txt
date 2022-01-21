@@ -17,7 +17,7 @@ REQUIREMENTS:
 -------------
 - Qt5
 - python3
-- pyqt5 (qt5 bindings for python)
+- pyqt5 (qt5 bindings for python3)
 
 CHANGELOG:
 ----------
