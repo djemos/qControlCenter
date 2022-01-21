@@ -98,5 +98,5 @@ CONTACT:
  - former maintainer : Didier Spaier
  - email : didier~at~slint~dot~fr
  - maintainer : Dimitris Tzemos
- - email: dijemos~at~gmail~dor~com
+ - email: dijemos~at~gmail~dot~com
  - website : https://github.com/djemos/qControlCenter
