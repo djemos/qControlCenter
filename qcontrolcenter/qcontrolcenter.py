@@ -19,6 +19,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets #works for pyqt5
 from PyQt5.QtCore import QUrl, QObject, pyqtSignal
 from PyQt5.QtGui import QDesktopServices
 from helpDialog import helpDialog
+from errorDialog import errorDialog
 
 # *** SOME GENERAL FUNCTIONS ***
 # We recommend that the sysadmin or distribution maintainer installs the
@@ -162,8 +163,12 @@ class ConfigDialog(QtWidgets.QMainWindow):
 		self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, dock)
 		self.setWindowTitle(self.tr(getWindowTitle()))
 		self.setWindowIcon(QtGui.QIcon("icons/arch-logo.png"))
-		self.setMinimumSize(640,480)
-	       		
+		#self.setMinimumSize(640,480)
+		if not os.path.exists(CONFIG_DIR):
+			if not os.path.exists('/etc/skel/.qcontrolcenter'):
+				errorDlg = errorDialog(self)
+				errorDlg.show()
+				   		
 	def showAbout(self):
 		helpDlg = helpDialog(self)
 		helpDlg.show()
