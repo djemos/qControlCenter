@@ -1,4 +1,4 @@
-- qControlCenter v0.1 -
+- qControlCenter v0.3 -
 ----------------------
 
 ABOUT:
@@ -14,22 +14,23 @@ FEATURES:
 
 REQUIREMENTS:
 -------------
-- Qt (I mean qt4)
-- python
-- pyqt4 (qt4 bindings for python)
+- Qt5
+- python3
+- pyqt5 (qt5 bindings for python)
 
 CHANGELOG:
 ----------
-  Version 0.1 (launched 2008/05/20)
+  Version 0.1 (launched 2008/05/20) - python2 and PyQt4
+  Version 0.3 (launced 2020/01/21) - Ported to python3 and PyQt5
 
 INSTALL:
 --------
 - uncompress source tarball
 - launch :
 	# cd qcontrolcenter
-	# python qcontrolcenter.py
+	# python3 qcontrolcenter.py
 	or
-	# python qcontrolcenter.py /path/to/a/spectific/structure/directory
+	# python3 qcontrolcenter.py /path/to/a/spectific/structure/directory
 
 qControlCenter setup INSTRUCTIONS:
 ----------------------------------
@@ -90,6 +91,8 @@ CONTACT:
 --------
  - author : Thierry Deseez
  - email : pizza~dot~tony~at~free~dot~fr
- - maintainer : Didier Spaier
+ - former maintainer : Didier Spaier
  - email : didier~at~slint~dot~fr
- - website : https://github.com/DidierSpaier/qControlCenter
+ - maintainer : Dimitris Tzemos
+ - email: dijemos~at~gmail~dor~com
+ - website : https://github.com/djemos/qControlCenter
