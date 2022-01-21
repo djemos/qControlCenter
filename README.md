@@ -10,7 +10,7 @@ FEATURES:
 REQUIREMENTS:
 - Qt5
 - python3
-- pyqt5 (qt5 bindings for python)
+- pyqt5 (qt5 bindings for python3)
 - pyxdg (python3 library to access freedesktop.org specifications)
 
 CHANGELOG:
