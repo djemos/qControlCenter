@@ -26,7 +26,7 @@ class errorDialog(QtWidgets.QDialog):
 		pbClose = QtWidgets.QPushButton("&Close")
 
 		tabWidget = QtWidgets.QTabWidget(self)
-		tabWidget.addTab(self.tabInstructions(),"No base structure directory found. Please read the instructions below")
+		tabWidget.addTab(self.tabInstructions(),"No base structure directory found. Please read the instructions below.")
 		
 		hlay = QtWidgets.QHBoxLayout()
 		hlay.addStretch()
