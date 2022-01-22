@@ -272,10 +272,10 @@ class ConfigDialog(QtWidgets.QMainWindow):
 	def cellBuilder(self, iconName, programName, commentName, execName):
 		cell = (
 				u"<td width='60' class='joe' valign='middle' align='left'>"
-				u"<a href='" + unicode(execName) + u"'><img width='48' height='48' src='" + unicode(iconName) + u"'></a>"
+				u"<a href='" + unicode(execName).rstrip("%u") + u"'><img width='48' height='48' src='" + unicode(iconName) + u"'></a>"
 				u"</td>"
 				u"<td width='30%'>"
-				u"<a href='" + unicode(execName) + u"'><b>"+ unicode(programName) + u"</b><br><em>" + unicode(commentName) + u"</em></a>"
+				u"<a href='" + unicode(execName).rstrip("%u") + u"'><b>"+ unicode(programName) + u"</b><br><em>" + unicode(commentName) + u"</em></a>"
 				u"</td>"
 				)
 		
