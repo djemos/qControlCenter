@@ -23,6 +23,7 @@ CHANGELOG:
 ----------
   Version 0.1 (launched 2008/05/20) - python2 and PyQt4
   Version 0.3 (launced 2020/01/21) - Ported to python3 and PyQt5
+  
   NOTE: To open html pages in Version 0.3 from .desktop files use this syntax Exec=http://URL e.g. Exec=http://www.slackel.gr or
   Exec=https://slint.fr
 
